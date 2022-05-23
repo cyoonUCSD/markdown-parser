@@ -17,27 +17,7 @@ public class MarkdownParseTest {
         Path fileName = Path.of("test-file.md");
         String content = Files.readString(fileName);
         List<String> links = MarkdownParse.getLinks(content);
-        List<String> expected = List.of("https://something.com", "https://some-thing.com");
-
-        assertEquals(expected, links);
-    }
-
-    @Test
-    public void getlinks3() throws IOException {
-        Path fileName = Path.of("test-file2old.md");
-        String content = Files.readString(fileName);
-        List<String> links = MarkdownParse.getLinks(content);
-        List<String> expected = List.of("https://github.com", "https://youtube.com");
-
-        assertEquals(expected, links);
-    }
-
-    @Test
-    public void getlinks3() throws IOException {
-        Path fileName = Path.of("test-file3old.md");
-        String content = Files.readString(fileName);
-        List<String> links = MarkdownParse.getLinks(content);
-        List<String> expected = List.of("https://google.com");
+        List<String> expected = List.of("https://something.com");
 
         assertEquals(expected, links);
     }
@@ -108,6 +88,36 @@ public class MarkdownParseTest {
         String content = Files.readString(fileName);
         List<String> links = MarkdownParse.getLinks(content);
         List<String> expected = List.of();
+
+        assertEquals(expected, links);
+    }
+
+    @Test
+    public void getlinksSnippet1() throws IOException {
+        Path fileName = Path.of("snippet1.md");
+        String content = Files.readString(fileName);
+        List<String> links = MarkdownParse.getLinks(content);
+        List<String> expected = List.of("`google.com", "google.com", "ucsd.edu");
+
+        assertEquals(expected, links);
+    }
+
+    @Test
+    public void getlinksSnippet2() throws IOException {
+        Path fileName = Path.of("Snippet2.md");
+        String content = Files.readString(fileName);
+        List<String> links = MarkdownParse.getLinks(content);
+        List<String> expected = List.of("a.com", "a.com(())", "example.com");
+
+        assertEquals(expected, links);
+    }
+
+    @Test
+    public void getlinksSnippet3() throws IOException {
+        Path fileName = Path.of("snippet3.md");
+        String content = Files.readString(fileName);
+        List<String> links = MarkdownParse.getLinks(content);
+        List<String> expected = List.of(" https://www.twitter.com", "https://sites.google.com/eng.ucsd.edu/cse-15l-spring-2022/schedule", "https://cse.ucsd.edu/");
 
         assertEquals(expected, links);
     }
